@@ -1,0 +1,10 @@
+mqtt-broker=
+mqtt-port=
+mqtt-username=
+mqtt-password=
+
+postgres-host=
+postgres-port=
+postgres-database=
+postgres-user=
+postgres-password=
