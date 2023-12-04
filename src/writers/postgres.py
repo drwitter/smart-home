@@ -18,9 +18,18 @@ class postgres:
         if self.conn is None:
             self.connect()
         cur = self.conn.cursor()
-        query = f"INSERT INTO temperature (room, value) VALUES ('{payload.get('room','office')}',{payload.get('value','0')});"
-        cur.execute(query)
-        self.conn.commit()
+        if payload.get('sensor') == 'temperature':
+            query = f"INSERT INTO temperature (room, value) VALUES ('{payload.get('room','office')}',{payload.get('value','0')});"
+            cur.execute(query)
+            self.conn.commit()
+        elif payload.get('sensor') == 'motion':
+            query = f"INSERT INTO motion (room, value) VALUES ('{payload.get('room','office')}',{payload.get('value',False)});"
+            cur.execute(query)
+            self.conn.commit()
+        else:
+            print('Unknown sensor type')
+            print(payload)
+        # query = f"INSERT INTO temperature (room, value) VALUES ('{payload.get('room','office')}',{payload.get('value','0')});"
         cur.close()
 
     def close(self):
